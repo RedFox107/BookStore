@@ -5,7 +5,13 @@ import {connect} from "react-redux";
 
 
 
-const HeaderContainer = ({quantity,price})=>{
+const HeaderContainer = ({books,selectedBooks})=>{
+    let price = 0;
+    const quantity = selectedBooks.reduce((prevValue,item)=>{
+        price+=item.count*books[books.findIndex((b)=>b.id===item.id)].cost
+        //debugger
+        return prevValue+item.count
+    },0)
 
     return (
         <>
@@ -29,8 +35,8 @@ const Header = ({numItems=0,cost=0})=>{
 }
 
 const mapStateToProps = (state)=>({
-    quantity:state.selectedBooks.quantity,
-    price:state.selectedBooks.fullPrice
+    books:state.books.books,
+    selectedBooks: state.selectedBooks.selectedBooks
 })
 
 export default connect(mapStateToProps)(HeaderContainer);

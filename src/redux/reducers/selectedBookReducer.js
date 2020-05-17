@@ -4,9 +4,7 @@ const ADD_SELECTED_BOOK = 'ADD_SELECTED_BOOK',
     DEC_BOOK_COUNT = 'DEC_BOOK_COUNT';
 
 const initialState = {
-    selectedBooks: [],
-    fullPrice: 0,
-    quantity: 0
+    selectedBooks: []
 };
 
 const selectedBookReducer = (state = initialState, action) => {
@@ -19,11 +17,12 @@ const selectedBookReducer = (state = initialState, action) => {
             ];
             if (index >= 0) {
                 resultArray = [
-                    ...state.selectedBooks.filter((b) => b.id !== action.id),
+                    ...state.selectedBooks.slice(0,index),
                     {
                         ...state.selectedBooks[index],
                         count: state.selectedBooks[index].count + 1
-                    }
+                    },
+                    ...state.selectedBooks.slice(index+1)
                 ]
 
             }
@@ -45,11 +44,12 @@ const selectedBookReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedBooks: [
-                    ...state.selectedBooks,
+                    ...state.selectedBooks.slice(0,ind_dec),
                     {
                         ...state.selectedBooks[ind_dec],
                         count: state.selectedBooks[ind_dec].count - 1
-                    }
+                    },
+                    ...state.selectedBooks.slice(ind_dec+1)
                 ]
             }
             break;
@@ -66,5 +66,4 @@ export default selectedBookReducer;
 //TC - thunk creator
 export const addSelectedBookAC = (id) => ({type: ADD_SELECTED_BOOK, id})
 export const deleteSelectedBookAC = (id) => ({type: DELETE_BOOK, id});
-export const incSelectedBookCounterAC = (id) => ({type: INC_BOOK_COUNT, id});
 export const decSelectedBookCounterAC = (id) => ({type: DEC_BOOK_COUNT, id});

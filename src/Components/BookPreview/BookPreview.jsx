@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import s from './BookPreview.module.css';
 import {connect} from "react-redux";
 import {addSelectedBookAC} from "../../redux/reducers/selectedBookReducer";
@@ -25,6 +25,9 @@ const Book = ({cost, author, bookName, photoUrl,id,...props}) => {
 }
 
 const BookContainer = ({books,...props})=>{
+    useEffect(()=>{
+        props.getBookTC();
+    },[])
     const {addSelectedBookAC} = props;
     const addBook = (id)=>{
         //debugger
