@@ -1,0 +1,18 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+.App{
+  margin: 1% auto;
+  max-width: 1300px;
+
+}
+.flex{
+  display: flex;
+}
+.center-x{
+  justify-content: center;
+}
+.center-y{
+  align-items: center;
+}

@@ -1,0 +1,56 @@
+.baseBlock{
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+.book{
+    display: flex;
+    flex-wrap: wrap;
+}
+.book>div>img{
+
+    width: 150px;
+}
+.aboutBook{
+    display: grid;
+    grid-template-rows: 8fr 2fr;
+}
+.aboutBook>div>h2{
+    font-size: 1.7em;
+    text-align: start;
+}
+.aboutBook>div>p:nth-child(1){
+    font-size: 1.4em;
+    color: #3779ea;
+    font-weight: bold;
+}
+.aboutBook>div>p:nth-child(2){
+    font-size: 1.05em;
+}
+.aboutBook>div>*{
+    padding-bottom: 1.5%;
+}
+.aboutBook{
+    margin: 10px 20px;
+}
+.aboutBook>button{
+    width: 128px;
+    border: none;
+    background-color: #42aad4;
+    border-radius: 7px;
+    font-size: 1.1em;
+    color: white;
+}
+.book>div:nth-child(1){
+    margin: 0 auto;
+}
+.aboutBook>button:hover{
+    box-shadow: 0 0 5px #42aad4;
+    cursor: pointer;
+}
+.aboutBook>div>p:nth-child(1):hover{
+    cursor: pointer;
+    text-decoration-line: underline;
+}
