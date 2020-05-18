@@ -1,9 +1,7 @@
 .baseBlock{
-
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-
 }
 .book{
     display: flex;
@@ -47,14 +45,17 @@
     margin: 0 auto;
 }
 .aboutBook>button:hover{
+    transition: 0.15s;
     box-shadow: 0 0 5px #42aad4;
     cursor: pointer;
 }
 .aboutBook>div>p>a:hover{
+
     cursor: pointer;
-    text-decoration-line: underline;
+    text-decoration: underline;
 }
 .aboutBook>div>p>a{
+
     text-decoration: none;
     color: #3779ea;
 }
