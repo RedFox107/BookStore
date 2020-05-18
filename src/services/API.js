@@ -5,23 +5,23 @@ const API= {
     getBooks: async () =>
         [
             {
-                id: Math.floor(Math.random()*10+Math.random()*10),
-                bookName: 'TestBookName',
-                author: 'SomeAuthor',
+                id: Math.floor(Math.random()*1000),
+                bookName: 'TestBookName1',
+                author: 'SomeAuthor1',
                 cost: 300,
                 photoUrl: img
             },
             {
-                id: Math.floor(Math.random()*10+20+Math.random()*10),
-                bookName: 'TestBookName',
-                author: 'SomeAuthor',
+                id: Math.floor(Math.random()*1000+20),
+                bookName: 'TestBookName2',
+                author: 'SomeAuthor2',
                 cost: 345,
                 photoUrl: img
             },
             {
-                id: Math.floor(Math.random()*10+50+Math.random()*10),
-                bookName: 'TestBookName',
-                author: 'SomeAuthor',
+                id: Math.floor(Math.random()*1000+50),
+                bookName: 'TestBookName3',
+                author: 'SomeAuthor3',
                 cost: 108,
                 photoUrl: img
             }

@@ -50,7 +50,11 @@
     box-shadow: 0 0 5px #42aad4;
     cursor: pointer;
 }
-.aboutBook>div>p:nth-child(1):hover{
+.aboutBook>div>p>a:hover{
     cursor: pointer;
     text-decoration-line: underline;
+}
+.aboutBook>div>p>a{
+    text-decoration: none;
+    color: #3779ea;
 }

@@ -1,6 +1,5 @@
 const ADD_SELECTED_BOOK = 'ADD_SELECTED_BOOK',
     DELETE_BOOK = 'DELETE_BOOK',
-    INC_BOOK_COUNT = 'INC_BOOK_COUNT',
     DEC_BOOK_COUNT = 'DEC_BOOK_COUNT';
 
 const initialState = {
@@ -17,12 +16,12 @@ const selectedBookReducer = (state = initialState, action) => {
             ];
             if (index >= 0) {
                 resultArray = [
-                    ...state.selectedBooks.slice(0,index),
+                    ...state.selectedBooks.slice(0, index),
                     {
                         ...state.selectedBooks[index],
                         count: state.selectedBooks[index].count + 1
                     },
-                    ...state.selectedBooks.slice(index+1)
+                    ...state.selectedBooks.slice(index + 1)
                 ]
 
             }
@@ -41,16 +40,21 @@ const selectedBookReducer = (state = initialState, action) => {
             break;
         case DEC_BOOK_COUNT:
             const ind_dec = state.selectedBooks.findIndex((book) => book.id === action.id)
-            return {
-                ...state,
-                selectedBooks: [
-                    ...state.selectedBooks.slice(0,ind_dec),
+            let selectedBook = []
+            if (state.selectedBooks[ind_dec].count - 1 === 0) {
+                selectedBook = state.selectedBooks.filter((book) => book.id !== action.id)
+            } else {
+                selectedBook = [...state.selectedBooks.slice(0, ind_dec),
                     {
                         ...state.selectedBooks[ind_dec],
                         count: state.selectedBooks[ind_dec].count - 1
                     },
-                    ...state.selectedBooks.slice(ind_dec+1)
-                ]
+                    ...state.selectedBooks.slice(ind_dec + 1)]
+            }
+
+            return {
+                ...state,
+                selectedBooks: selectedBook
             }
             break;
         default:

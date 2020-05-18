@@ -3,6 +3,7 @@ import s from './BookPreview.module.css';
 import {connect} from "react-redux";
 import {addSelectedBookAC} from "../../redux/reducers/selectedBookReducer";
 import {getBookTC} from "../../redux/reducers/BooksReducer";
+import {Link, NavLink, withRouter} from "react-router-dom";
 
 const Book = ({cost, author, bookName, photoUrl,id,...props}) => {
 
@@ -13,30 +14,49 @@ const Book = ({cost, author, bookName, photoUrl,id,...props}) => {
             </div>
             <div className={s.aboutBook}>
                 <div>
-                    <p>{bookName}</p>
+                    <p><Link to={`${id}`}>{bookName}</Link></p>
                     <p>by {author}</p>
                     <h2>${cost}</h2>
                 </div>
                 <button onClick={props.addBook}>Add to Cart</button>
-                {/*<button onClick={()=>props.getBookTC()}>Get Book</button>*/}
             </div>
         </div>
     )
 }
 
-const BookContainer = ({books,...props})=>{
+const FullBookInfo = (props)=>{
+    //debugger
+    return (
+        <div>
+            <Book {...props.book} addBook={props.addBook}/>
+            <div>Some info about this book</div>
+        </div>
+    )
+}
+
+const BookContainer = ({books,match,...props})=>{
+    //hooks
     useEffect(()=>{
         props.getBookTC();
     },[])
+    //const
+    const bookId = +match.params.bookId;
     const {addSelectedBookAC} = props;
-    const addBook = (id)=>{
-        //debugger
-        addSelectedBookAC(id);
+
+    if(!isNaN(bookId)){
+        const book = books.filter((b)=>b.id===bookId)[0];
+        return <FullBookInfo book={book} addBook={()=>{addSelectedBookAC(bookId)}}/>
     }
+
+
+
+
+
     return (
         <div className={s.baseBlock}>
-            {books.map((b)=>(<Book key={b.id} {...b} addBook={()=>{addBook(b.id)}}/>))}
-
+            {
+                books.map((b)=>(<Book key={b.id} {...b} addBook={()=>{addSelectedBookAC(b.id)}}/>))
+            }
         </div>
     )
 }
@@ -50,4 +70,4 @@ const mapStateToProps = (state)=>({
 
 
 
-export default connect(mapStateToProps,{addSelectedBookAC,getBookTC})(BookContainer);
+export default withRouter(connect(mapStateToProps,{addSelectedBookAC,getBookTC})(BookContainer));

@@ -1,4 +1,4 @@
-.rightHeader{
+.rightHeader>a{
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -8,7 +8,7 @@
 .leftHeader{
 
 }
-.rightHeader>img{
+.rightHeader>a>img{
     height: 50px;
 
 }
@@ -19,4 +19,15 @@
     margin: 0 1% 2% 1%;
     box-sizing: border-box;
     border-bottom: 2px #f1f1f1 solid;
+}
+.leftHeader>a{
+    color: black;
+    text-decoration: none;
+}
+.rightHeader>a{
+    color: black;
+    text-decoration: none;
+}
+.rightHeader>a:hover{
+    text-decoration: underline;
 }

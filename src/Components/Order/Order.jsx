@@ -7,13 +7,13 @@ import {
     deleteSelectedBookAC
 } from "../../redux/reducers/selectedBookReducer";
 
-const SelectedItem = ({count, price, ...props}) => {
+const SelectedItem = ({count, bookInfo, ...props}) => {
     return (
         <div className={s.item}>
             <div>{props.index+1}</div>
-            <div>SomeBookName</div>
+            <div>{bookInfo.bookName}</div>
             <div>{count}</div>
-            <div>${count * price}</div>
+            <div>${count * bookInfo.cost}</div>
             <div>
                 <button onClick={props.addBook}>+</button>
                 <button onClick={props.decBook}>-</button>
@@ -35,11 +35,9 @@ const Order = ({books, selectedBooks, ...props}) => {
             </div>
             {selectedBooks.map(
                 (b,index) => {
-                    if(b.count===0){
-                        props.deleteSelectedBookAC(b.id)
-                        return null;
-                    }
+
                     return <SelectedItem
+
                         index={index}
                         count={b.count}
                         addBook={() => {
@@ -51,7 +49,7 @@ const Order = ({books, selectedBooks, ...props}) => {
                         delBook={() => {
                             props.deleteSelectedBookAC(b.id)
                         }}
-                        price={books.filter((bookInfo) => bookInfo.id === b.id)[0].cost}
+                        bookInfo={books.filter((bookInfo) => bookInfo.id === b.id)[0]}
                         key={b.id}/>
                 }
             )}
