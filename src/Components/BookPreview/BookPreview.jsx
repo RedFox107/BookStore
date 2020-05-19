@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {addSelectedBookAC} from "../../redux/reducers/selectedBookReducer";
 import {getBookTC} from "../../redux/reducers/BooksReducer";
 import {Link, withRouter} from "react-router-dom";
+import Loader from "../common/Loader/withLoading";
 
 const Book = ({cost, author, bookName, photoUrl, id, ...props}) => {
 
@@ -34,7 +35,7 @@ const FullBookInfo = (props) => {
     )
 }
 
-const BookContainer = ({getBookTC,books, match, addSelectedBookAC, ...props}) => {
+const BookContainer = ({loading,getBookTC,books, match, addSelectedBookAC, ...props}) => {
     //hooks
 
     //const
@@ -57,6 +58,7 @@ const BookContainer = ({getBookTC,books, match, addSelectedBookAC, ...props}) =>
                 }
 
             </div>
+            {loading&&<Loader loading={loading}/>}
             <div>
                 <button onClick={()=>{getBookTC()}}>Next books</button>
             </div>
@@ -66,7 +68,8 @@ const BookContainer = ({getBookTC,books, match, addSelectedBookAC, ...props}) =>
 
 
 const mapStateToProps = (state) => ({
-    books: state.books.books
+    books: state.books.books,
+    loading:state.books.loading
 })
 
 

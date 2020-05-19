@@ -1,18 +1,19 @@
 import React from "react";
 import s from './withLoading.module.css';
 
-const Loader = ({loading}) => {
-    if(!loading)return null;
+const Loader = (props) => {
     return (
-        <div className={s.ldsRoller}>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+        <div className={s.center}>
+            <div className={s.ldsRoller}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </div>
     )
 }

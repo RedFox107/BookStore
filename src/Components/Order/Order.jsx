@@ -64,7 +64,7 @@ const Order = ({books, selectedBooks, ...props}) => {
             <div className={s.checkout}>
                 <p>Total: ${price}</p>
 
-                <button><img src={photo}/>Checkout</button>
+                <button><img alt={'some img'} src={photo}/>Checkout</button>
             </div>
         </div>
 
