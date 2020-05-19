@@ -1,5 +1,5 @@
 import {combineReducers,createStore} from "redux";
-import bookReducer, {getBookTC} from "./reducers/BooksReducer";
+import bookReducer from "./reducers/BooksReducer";
 import selectedBookReducer from "./reducers/selectedBookReducer";
 import {applyMiddleware} from "redux";
 import thunkMiddleware from 'redux-thunk';

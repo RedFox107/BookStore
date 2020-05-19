@@ -10,7 +10,7 @@ const initialState = {
             id: 0,
             bookName: 'TestBookName',
             author: 'SomeAuthor',
-            cost: 300,
+            cost: 30,
             photoUrl: img
         }
     ]
@@ -28,10 +28,8 @@ const bookReducer = (state=initialState,action)=>{
                     ...action.books
                 ]
             }
-            break;
         default:
             return state;
-            break;
     }
 }
 

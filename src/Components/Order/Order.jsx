@@ -6,6 +6,9 @@ import {
     decSelectedBookCounterAC,
     deleteSelectedBookAC
 } from "../../redux/reducers/selectedBookReducer";
+import photo from './../../images/credit-card.svg'
+
+
 
 const SelectedItem = ({count, bookInfo, ...props}) => {
     return (
@@ -24,6 +27,11 @@ const SelectedItem = ({count, bookInfo, ...props}) => {
 }
 
 const Order = ({books, selectedBooks, ...props}) => {
+    let price = 0;
+    selectedBooks.reduce((prevValue, item) => {
+        price += item.count * books[books.findIndex((b) => b.id === item.id)].cost
+        return prevValue + item.count
+    }, 0)
     return (
         <div>
             <div className={s.item}>
@@ -53,6 +61,11 @@ const Order = ({books, selectedBooks, ...props}) => {
                         key={b.id}/>
                 }
             )}
+            <div className={s.checkout}>
+                <p>Total: ${price}</p>
+
+                <button><img src={photo}/>Checkout</button>
+            </div>
         </div>
 
     )
@@ -68,3 +81,4 @@ export default connect(mapStateToProps, {
     deleteSelectedBookAC,
     decSelectedBookCounterAC
 })(Order)
+

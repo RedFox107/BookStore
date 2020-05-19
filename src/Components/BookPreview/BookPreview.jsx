@@ -1,9 +1,9 @@
-import React, {useEffect} from "react";
+import React from "react";
 import s from './BookPreview.module.css';
 import {connect} from "react-redux";
 import {addSelectedBookAC} from "../../redux/reducers/selectedBookReducer";
 import {getBookTC} from "../../redux/reducers/BooksReducer";
-import {Link, NavLink, withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 const Book = ({cost, author, bookName, photoUrl, id, ...props}) => {
 
@@ -68,6 +68,7 @@ const BookContainer = ({getBookTC,books, match, addSelectedBookAC, ...props}) =>
 const mapStateToProps = (state) => ({
     books: state.books.books
 })
+
 
 
 export default withRouter(connect(mapStateToProps, {addSelectedBookAC, getBookTC})(BookContainer));
