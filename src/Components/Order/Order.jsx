@@ -5,7 +5,7 @@ import {
     addSelectedBookAC,
     decSelectedBookCounterAC,
     deleteSelectedBookAC
-} from "../../redux/reducers/selectedBookReducer";
+} from "../../redux/reducers/BooksReducer";
 import photo from './../../images/credit-card.svg'
 
 
@@ -72,7 +72,7 @@ const Order = ({books, selectedBooks, ...props}) => {
 }
 
 const mapStateToProps = (state) => ({
-    selectedBooks: state.selectedBooks.selectedBooks,
+    selectedBooks: state.books.selectedBooks,
     books: state.books.books
 })
 

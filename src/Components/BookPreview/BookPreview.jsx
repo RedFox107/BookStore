@@ -1,13 +1,14 @@
 import React from "react";
 import s from './BookPreview.module.css';
 import {connect} from "react-redux";
-import {addSelectedBookAC} from "../../redux/reducers/selectedBookReducer";
+import {addSelectedBookAC} from "../../redux/reducers/BooksReducer";
 import {getBookTC} from "../../redux/reducers/BooksReducer";
 import {Link, withRouter} from "react-router-dom";
 import Loader from "../common/Loader/withLoading";
 
-const Book = ({cost, author, bookName, photoUrl, id, ...props}) => {
 
+
+const Book = ({cost, author, bookName, photoUrl, id, ...props}) => {
     return (
         <div className={s.book}>
             <div>
@@ -26,7 +27,6 @@ const Book = ({cost, author, bookName, photoUrl, id, ...props}) => {
 }
 
 const FullBookInfo = (props) => {
-    //debugger
     return (
         <div>
             <Book {...props.book} addBook={props.addBook}/>
@@ -36,9 +36,6 @@ const FullBookInfo = (props) => {
 }
 
 const BookContainer = ({loading,getBookTC,books, match, addSelectedBookAC, ...props}) => {
-    //hooks
-
-    //const
     const bookId = +match.params.bookId;
 
     if (!isNaN(bookId)) {
@@ -47,7 +44,6 @@ const BookContainer = ({loading,getBookTC,books, match, addSelectedBookAC, ...pr
             addSelectedBookAC(bookId)
         }}/>
     }
-
     return (
         <>
             <div className={s.baseBlock}>
@@ -67,11 +63,13 @@ const BookContainer = ({loading,getBookTC,books, match, addSelectedBookAC, ...pr
 }
 
 
+
+
+
+
 const mapStateToProps = (state) => ({
     books: state.books.books,
     loading:state.books.loading
 })
-
-
 
 export default withRouter(connect(mapStateToProps, {addSelectedBookAC, getBookTC})(BookContainer));

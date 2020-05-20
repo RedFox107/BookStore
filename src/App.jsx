@@ -29,9 +29,7 @@ class App extends React.Component {
     }
 }
 
-const mSTP =(state)=>({
-
-})
+const mSTP =()=>({})
 
 export default connect(mSTP,{getBookTC})(withErrorBoundary(App));
 

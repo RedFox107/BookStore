@@ -39,7 +39,7 @@ const Header = ({numItems = 0, cost = 0}) => {
 
 const mapStateToProps = (state) => ({
     books: state.books.books,
-    selectedBooks: state.selectedBooks.selectedBooks
+    selectedBooks: state.books.selectedBooks
 })
 
 export default connect(mapStateToProps)(HeaderContainer);
