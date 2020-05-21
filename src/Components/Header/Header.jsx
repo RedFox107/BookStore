@@ -5,21 +5,16 @@ import {connect} from "react-redux";
 import {NavLink} from "react-router-dom";
 
 
-const HeaderContainer = ({books, selectedBooks}) => {
-    let price = 0;
-    const quantity = selectedBooks.reduce((prevValue, item) => {
-        price += item.count * books[books.findIndex((b) => b.id === item.id)].cost
-        return prevValue + item.count
-    }, 0)
+const HeaderContainer = ({fullPrice, totalCount}) => {
 
     return (
         <>
-            <Header numItems={quantity} cost={price}/>
+            <Header count={totalCount} fullPrice={fullPrice}/>
         </>
     )
 }
 
-const Header = ({numItems = 0, cost = 0}) => {
+const Header = ({count = 0, fullPrice = 0}) => {
     return (
         <div className={s.wrap}>
             <div className={s.leftHeader}>
@@ -30,7 +25,7 @@ const Header = ({numItems = 0, cost = 0}) => {
             <div className={s.rightHeader}>
                 <NavLink to={'/order'}>
                     <img src={cart} alt={'img'}/>
-                    <span>{numItems} items (${cost})</span>
+                    <span>{count} items (${fullPrice})</span>
                 </NavLink>
             </div>
         </div>
@@ -38,8 +33,8 @@ const Header = ({numItems = 0, cost = 0}) => {
 }
 
 const mapStateToProps = (state) => ({
-    books: state.books.books,
-    selectedBooks: state.books.selectedBooks
+    fullPrice: state.books.fullPrice,
+    totalCount:state.books.totalCount,
 })
 
 export default connect(mapStateToProps)(HeaderContainer);

@@ -10,7 +10,9 @@ const initialState = {
     books: [],
     loading: false,
     error: null,
-    selectedBooks: []
+    selectedBooks: [],
+    fullPrice:0,
+    totalCount:0
 };
 //help functions-----
 const updateCartItems = (array, item,index) => {
@@ -34,7 +36,6 @@ const updateCartItems = (array, item,index) => {
         ...array.slice(index + 1)
     ]
 }
-
 const updateCartItem = (book, item = {},addNewCount=1) => {
     const {
         id = book.id,
@@ -50,12 +51,21 @@ const updateCartItem = (book, item = {},addNewCount=1) => {
     }
 }
 const getArrayWithoutId = (array, id) => array.filter((book) => book.id !== id)
+const updateFullPriceAndCount = (selectedBooks)=>{
+    let price = 0;
+    const quantity = selectedBooks.reduce((prevValue, book) => {
+        price += book.total;
+        return prevValue + book.count
+    }, 0)
+    return [price,quantity];
+}
 //-------------------
 
 const bookReducer = (state = initialState, action) => {
     const index = state.selectedBooks.findIndex((b) => b.id === action.id);;
     const bookInCard = state.selectedBooks[index];
     const book = state.books.find((b)=>b.id===action.id)
+    let newItems,fullPrice,totalCount;
     switch (action.type) {
         case TOGGLE_LOADING:
             return {
@@ -71,22 +81,33 @@ const bookReducer = (state = initialState, action) => {
                 ]
             }
         case ADD_SELECTED_BOOK:
+            newItems = updateCartItems(state.selectedBooks,updateCartItem(book,bookInCard),index);
+            [fullPrice,totalCount] = updateFullPriceAndCount(newItems);
             return {
                 ...state,
-                selectedBooks: updateCartItems(state.selectedBooks,updateCartItem(book,bookInCard),index)
+                selectedBooks: newItems,
+                fullPrice,
+                totalCount,
             }
 
         case DELETE_BOOK:
-
+            newItems = getArrayWithoutId(state.selectedBooks, action.id);
+            [fullPrice,totalCount] = updateFullPriceAndCount(newItems);
             return {
                 ...state,
-                selectedBooks: [...getArrayWithoutId(state.selectedBooks, action.id)]
+                selectedBooks: [...getArrayWithoutId(state.selectedBooks, action.id)],
+                fullPrice,
+                totalCount,
             }
 
         case DEC_BOOK_COUNT:
+            newItems = updateCartItems(state.selectedBooks,updateCartItem(book,bookInCard,-1),index);
+            [fullPrice,totalCount] = updateFullPriceAndCount(newItems);
             return {
                 ...state,
-                selectedBooks: updateCartItems(state.selectedBooks,updateCartItem(book,bookInCard,-1),index)
+                selectedBooks: newItems,
+                fullPrice,
+                totalCount,
             }
         default:
             return state;

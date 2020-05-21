@@ -10,13 +10,13 @@ import photo from './../../images/credit-card.svg'
 
 
 
-const SelectedItem = ({count, bookInfo, ...props}) => {
+const SelectedItem = ({book, ...props}) => {
     return (
         <div className={s.item}>
             <div>{props.index+1}</div>
-            <div>{bookInfo.bookName}</div>
-            <div>{count}</div>
-            <div>${count * bookInfo.cost}</div>
+            <div>{book.title}</div>
+            <div>{book.count}</div>
+            <div>${book.total}</div>
             <div>
                 <button onClick={props.addBook}>+</button>
                 <button onClick={props.decBook}>-</button>
@@ -26,12 +26,7 @@ const SelectedItem = ({count, bookInfo, ...props}) => {
     )
 }
 
-const Order = ({books, selectedBooks, ...props}) => {
-    let price = 0;
-    selectedBooks.reduce((prevValue, item) => {
-        price += item.count * books[books.findIndex((b) => b.id === item.id)].cost
-        return prevValue + item.count
-    }, 0)
+const Order = ({selectedBooks,fullPrice, ...props}) => {
     return (
         <div>
             <div className={s.item}>
@@ -45,9 +40,8 @@ const Order = ({books, selectedBooks, ...props}) => {
                 (b,index) => {
 
                     return <SelectedItem
-
                         index={index}
-                        count={b.count}
+
                         addBook={() => {
                             props.addSelectedBookAC(b.id)
                         }}
@@ -57,13 +51,13 @@ const Order = ({books, selectedBooks, ...props}) => {
                         delBook={() => {
                             props.deleteSelectedBookAC(b.id)
                         }}
-                        bookInfo={books.filter((bookInfo) => bookInfo.id === b.id)[0]}
+
+                        book={b}
                         key={b.id}/>
                 }
             )}
             <div className={s.checkout}>
-                <p>Total: ${price}</p>
-
+                <p>Total: ${fullPrice}</p>
                 <button><img alt={'some img'} src={photo}/>Checkout</button>
             </div>
         </div>
@@ -73,7 +67,7 @@ const Order = ({books, selectedBooks, ...props}) => {
 
 const mapStateToProps = (state) => ({
     selectedBooks: state.books.selectedBooks,
-    books: state.books.books
+    fullPrice:state.books.fullPrice
 })
 
 export default connect(mapStateToProps, {
